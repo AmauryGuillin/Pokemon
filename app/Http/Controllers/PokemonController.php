@@ -16,9 +16,6 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        //retreive all 1st gen Pokemon links 
-        // $response = Http::get('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0');
-        // $pokemons = $response->json();
 
         // Get all pokemon
         $pokemons = Pokedex::all();
@@ -47,8 +44,11 @@ class PokemonController extends Controller
      */
     public function show(string $id)
     {
+
+        // Get the selected pokemon
         $pokemonSelected = Pokedex::where('name', $id)->first();
 
+        // Verify that the selected pokemon exists in DB
         if (!$pokemonSelected) {
             return redirect()->route('pokedex.index')->with('error', 'Le Pokémon demandé n\'existe pas.');
         }
