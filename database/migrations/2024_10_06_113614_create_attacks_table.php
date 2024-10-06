@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->integer("pp");
-            $table->integer("power");
-            $table->integer("accuracy");
+            $table->integer("power")->nullable();
+            $table->integer("accuracy")->nullable();
             $table->string("description");
             $table->timestamps();
         });
