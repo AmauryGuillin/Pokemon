@@ -15,25 +15,24 @@ return new class extends Migration
             $table->id();
             $table->integer("number");
             $table->string("name");
-            $table->string("height");
-            $table->string("weight");
+            $table->float("height");
+            $table->float("weight");
             $table->string("category");
-            $table->string("talent");
-            $table->unsignedBigInteger('type_prime_id'); //PK
+            $table->unsignedBigInteger('type_prime_id')->nullable(); //PK
             $table->foreign('type_prime_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('type_second_id'); //PK
+            $table->unsignedBigInteger('type_second_id')->nullable(); //PK
             $table->foreign('type_second_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('weakness_prime_id'); //PK
+            $table->unsignedBigInteger('weakness_prime_id')->nullable(); //PK
             $table->foreign('weakness_prime_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('weakness_second_id'); //PK
+            $table->unsignedBigInteger('weakness_second_id')->nullable(); //PK
             $table->foreign('weakness_second_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('weakness_tertiary_id'); //PK
+            $table->unsignedBigInteger('weakness_tertiary_id')->nullable(); //PK
             $table->foreign('weakness_tertiary_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('strengh_prime_id'); //PK
+            $table->unsignedBigInteger('strengh_prime_id')->nullable(); //PK
             $table->foreign('strengh_prime_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('strengh_second_id'); //PK
+            $table->unsignedBigInteger('strengh_second_id')->nullable(); //PK
             $table->foreign('strengh_second_id')->references('id')->on('types'); //PK
-            $table->unsignedBigInteger('strengh_tertiary_id'); //PK
+            $table->unsignedBigInteger('strengh_tertiary_id')->nullable(); //PK
             $table->foreign('strengh_tertiary_id')->references('id')->on('types'); //PK
             $table->string("stat_hp");
             $table->string("stat_attack");
@@ -41,18 +40,14 @@ return new class extends Migration
             $table->string("stat_special_attack");
             $table->string("stat_special_defense");
             $table->string("stat_speed");
-
-
-
-            //$table->string("attack_id"); //PK
-            $table->foreignId('attack_id')->constrained();
-
-
-
-            $table->string("pokemon_description");
-            $table->string("evolve_from");
-            $table->string("evolve_to");
-            $table->string("pokemon_cry");
+            $table->foreignId('attack_id')->nullable()->constrained(); //PK
+            $table->string("description");
+            $table->string("evolve_from")->nullable();
+            $table->string("evolve_to")->nullable();
+            $table->string("image_artwork");
+            $table->string('image_front');
+            $table->string('image_back');
+            $table->string("cry");
             $table->timestamps();
         });
     }

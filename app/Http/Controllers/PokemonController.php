@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pokedex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -16,10 +17,13 @@ class PokemonController extends Controller
     public function index()
     {
         //retreive all 1st gen Pokemon links 
-        $response = Http::get('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0');
-        $pokemons = $response->json();
+        // $response = Http::get('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0');
+        // $pokemons = $response->json();
 
-        return Inertia::render('Dashboard', ['pokemons' => $pokemons['results']]);
+        // Get all pokemon
+        $pokemons = Pokedex::all();
+
+        return Inertia::render('Dashboard', ['pokemons' => $pokemons]);
     }
 
     /**
@@ -43,19 +47,13 @@ class PokemonController extends Controller
      */
     public function show(string $id)
     {
-        //get the selected pokemon
-        $response = Http::get('https://pokeapi.co/api/v2/pokemon/' . $id);
-        $pokemon = $response->json();
+        $pokemonSelected = Pokedex::where('name', $id)->first();
 
-        $resp = Http::get('https://pokeapi.co/api/v2/pokemon-species/' . $id);
-        $pkmnDescriptionResp = $resp->json();
+        if (!$pokemonSelected) {
+            return redirect()->route('pokedex.index')->with('error', 'Le Pokémon demandé n\'existe pas.');
+        }
 
-        //Format description
-        $pkmnDescriptionUnformatted = (string) $pkmnDescriptionResp["flavor_text_entries"][0]["flavor_text"];
-        $pkmnDescriptionformatted = str_replace(["\n", "\f"], ' ', $pkmnDescriptionUnformatted);
-        $pkmnDescriptionformatted = preg_replace('/\s+/', ' ', $pkmnDescriptionUnformatted);
-
-        return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemon, 'pkmnDescription' => $pkmnDescriptionformatted]);
+        return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected]);
     }
 
     /**

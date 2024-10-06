@@ -13,7 +13,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps<{
     pokemon: any;
-    pkmnDescription: string;
 }>();
 </script>
 
@@ -34,10 +33,7 @@ const props = defineProps<{
                     <CardContent>
                         <div class="flex justify-center items-center">
                             <img
-                                :src="
-                                    pokemon.sprites.other['official-artwork']
-                                        .front_default
-                                "
+                                :src="pokemon.image_artwork"
                                 :alt="pokemon.name + 'image'"
                                 class="size-2/4"
                             />
@@ -54,7 +50,7 @@ const props = defineProps<{
                             </div>
                             <Separator class="my-4"></Separator>
                             <div class="">
-                                {{ pkmnDescription }}
+                                {{ pokemon.description }}
                             </div>
                         </div>
                     </CardFooter>

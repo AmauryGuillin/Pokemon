@@ -3,12 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Link } from "@inertiajs/vue3";
 
 const props = defineProps<{
-    pokemon: {
-        name: string;
-        image: string;
-        type: [];
-        url: string;
-    };
+    pokemon: any;
 }>();
 </script>
 
@@ -20,9 +15,7 @@ const props = defineProps<{
             </CardHeader>
             <CardContent class="flex justify-center items-center">
                 <img
-                    :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.url
-                        .split('/')
-                        .at(-2)}.png`"
+                    :src="pokemon.image_artwork"
                     :alt="pokemon.name"
                     class="size-1/2"
                 />

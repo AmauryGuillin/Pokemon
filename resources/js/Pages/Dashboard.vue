@@ -20,10 +20,6 @@ function searchPokemon(input: string) {
     <Head title="Pokedex" />
 
     <AuthenticatedLayout>
-        <!-- <template #header>
-            <h2 class="text-xl font-bold leading-tight text-white">Pokedex</h2>
-        </template> -->
-
         <div class="py-12">
             <div class="flex justify-center items-center mb-5">
                 <div class="relative w-full max-w-sm items-center">
@@ -45,7 +41,7 @@ function searchPokemon(input: string) {
                 class="grid justify-center grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mx-2 lg:mx-48"
             >
                 <PokemonCardSimple
-                    v-for="pokemon in pokemons.filter((p :any) => p.name.includes(searchWord))"
+                    v-for="pokemon in pokemons.filter((p :any) => p.name.toLowerCase().trim().includes(searchWord))"
                     :key="pokemon.name"
                     :pokemon="pokemon"
                 />
