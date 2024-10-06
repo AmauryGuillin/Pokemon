@@ -48,7 +48,6 @@ function searchPokemon(input: string) {
                     v-for="pokemon in pokemons.filter((p :any) => p.name.includes(searchWord))"
                     :key="pokemon.name"
                     :pokemon="pokemon"
-                    class="transition-all"
                 />
             </div>
         </div>

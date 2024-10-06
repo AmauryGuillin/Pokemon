@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [PokemonController::class, "index"])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/pokedex/{id}', [PokemonController::class, "show"])->middleware(['auth', 'verified'])->name('singlePokemon');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
