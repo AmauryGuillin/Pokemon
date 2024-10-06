@@ -26,7 +26,7 @@ function searchPokemon(input: string) {
                     <Input
                         id="search"
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Rechercher..."
                         class="pl-10"
                         @input="(event: any) => searchPokemon(event.target.value)"
                     />
