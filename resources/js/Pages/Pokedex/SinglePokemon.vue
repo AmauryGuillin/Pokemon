@@ -26,8 +26,8 @@ const props = defineProps<{
                             <span class="capitalize">{{ pokemon.name }}</span>
                         </CardTitle>
                         <CardDescription>
-                            <div>Height: {{ pokemon.height }} m</div>
-                            <div>Weight: {{ pokemon.weight }} kg</div>
+                            <div>Taille : {{ pokemon.height }} m</div>
+                            <div>Masse : {{ pokemon.weight }} kg</div>
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
