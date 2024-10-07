@@ -28,12 +28,24 @@ return new class extends Migration
             $table->foreign('weakness_second_id')->references('id')->on('types'); //PK
             $table->unsignedBigInteger('weakness_tertiary_id')->nullable(); //PK
             $table->foreign('weakness_tertiary_id')->references('id')->on('types'); //PK
+            $table->unsignedBigInteger('weakness_fourth_id')->nullable(); //PK
+            $table->foreign('weakness_fourth_id')->references('id')->on('types'); //PK
+            $table->unsignedBigInteger('weakness_fifth_id')->nullable(); //PK
+            $table->foreign('weakness_fifth_id')->references('id')->on('types'); //PK
+            $table->unsignedBigInteger('weakness_sixth_id')->nullable(); //PK
+            $table->foreign('weakness_sixth_id')->references('id')->on('types'); //PK
             $table->unsignedBigInteger('strengh_prime_id')->nullable(); //PK
             $table->foreign('strengh_prime_id')->references('id')->on('types'); //PK
             $table->unsignedBigInteger('strengh_second_id')->nullable(); //PK
             $table->foreign('strengh_second_id')->references('id')->on('types'); //PK
             $table->unsignedBigInteger('strengh_tertiary_id')->nullable(); //PK
             $table->foreign('strengh_tertiary_id')->references('id')->on('types'); //PK
+            $table->unsignedBigInteger('strengh_fourth_id')->nullable(); //PK
+            $table->foreign('strengh_fourth_id')->references('id')->on('types'); //PK
+            $table->unsignedBigInteger('strengh_fifth_id')->nullable(); //PK
+            $table->foreign('strengh_fifth_id')->references('id')->on('types'); //PK
+            $table->unsignedBigInteger('strengh_sixth_id')->nullable(); //PK
+            $table->foreign('strengh_sixth_id')->references('id')->on('types'); //PK
             $table->string("stat_hp");
             $table->string("stat_attack");
             $table->string("stat_defense");

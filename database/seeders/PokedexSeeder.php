@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Pokedex;
+use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -76,10 +77,97 @@ class PokedexSeeder extends Seeder
                 if ($stat['stat']['name'] === 'speed') $pokedexModel->stat_speed = $stat['base_stat'];
             }
 
-            //==============TODO==============//
-            // type-prime
-            // type-second
-            //==============TODO==============//
+
+            // Types
+            $countType = 0;
+
+            foreach ($pokemon['types'] as $type) {
+                $typeNamesUrl = $type['type']['url'];
+                $typeNamesReq = Http::get($typeNamesUrl);
+                $typeNames = $typeNamesReq->json();
+                foreach ($typeNames['names'] as $name) {
+                    if ($name['language']['name'] === self::LANGUAGE) {
+                        $retrivedTypeName = $name['name'];
+                        $typeId = Type::where('name', $retrivedTypeName)->first();
+                        $countType === 0 ? $pokedexModel->type_prime_id = $typeId->id : $pokedexModel->type_second_id = $typeId->id; // type_prime_id and type_second_id
+                        $countType++;
+                    }
+                }
+            }
+
+            // Strengths and Weaknesses
+            $countWeakness = 0;
+            $countStrength = 0;
+
+            foreach ($pokemon['types'] as $type) {
+                $typeNamesUrl = $type['type']['url'];
+                $typeData = Http::get($typeNamesUrl)->json();
+
+                foreach ($typeData['damage_relations']['double_damage_from'] as $weakness) {
+                    if ($countWeakness < 6) {
+                        $weaknessNamesReq = Http::get($weakness['url'])->json();
+                        foreach ($weaknessNamesReq['names'] as $weaknessName) {
+                            if ($weaknessName['language']['name'] === self::LANGUAGE) {
+                                $retrivedWeaknessName = $weaknessName['name'];
+                                $weaknessType = Type::where('name', $retrivedWeaknessName)->first();
+                                if ($weaknessType) {
+                                    if ($countWeakness === 0) {
+                                        $pokedexModel->weakness_prime_id = $weaknessType->id; //weakness_prime_id
+                                    } elseif ($countWeakness === 1) {
+                                        $pokedexModel->weakness_second_id = $weaknessType->id; //weakness_second_id
+                                    } elseif ($countWeakness === 2) {
+                                        $pokedexModel->weakness_tertiary_id = $weaknessType->id; //weakness_tertiary_id
+                                    } elseif ($countWeakness === 3) {
+                                        $pokedexModel->weakness_fourth_id = $weaknessType->id; //weakness_fourth_id
+                                    } elseif ($countWeakness === 4) {
+                                        $pokedexModel->weakness_fifth_id = $weaknessType->id; //weakness_fifth_id
+                                    } elseif ($countWeakness === 5) {
+                                        $pokedexModel->weakness_sixth_id = $weaknessType->id; //weakness_sixth_id
+                                    }
+                                    $countWeakness++;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                foreach ($typeData['damage_relations']['double_damage_to'] as $strength) {
+                    if ($countStrength < 6) {
+                        $strengthNamesReq = Http::get($strength['url'])->json();
+                        foreach ($strengthNamesReq['names'] as $strengthName) {
+                            if ($strengthName['language']['name'] === self::LANGUAGE) {
+                                $retrivedStrengthName = $strengthName['name'];
+                                $strengthType = Type::where('name', $retrivedStrengthName)->first();
+                                if ($strengthType) {
+                                    if ($countStrength === 0) {
+                                        $pokedexModel->strengh_prime_id = $strengthType->id; //strengh_prime_id
+                                    } elseif ($countStrength === 1) {
+                                        $pokedexModel->strengh_second_id = $strengthType->id; //strengh_second_id
+                                    } elseif ($countStrength === 2) {
+                                        $pokedexModel->strengh_tertiary_id = $strengthType->id; //strengh_tertiary_id
+                                    } elseif ($countStrength === 3) {
+                                        $pokedexModel->strengh_fourth_id = $strengthType->id; //strengh_fourth_id
+                                    } elseif ($countStrength === 4) {
+                                        $pokedexModel->strengh_fifth_id = $strengthType->id; //strengh_fifth_id
+                                    } elseif ($countStrength === 5) {
+                                        $pokedexModel->strengh_sixth_id = $strengthType->id; //strengh_sixth_id
+                                    }
+                                    $countStrength++;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            //=====================TODO=====================
+            //**********************************************
+            //====================ATTACKS===================
+            //**********************************************
+            //=====================TODO=====================
 
 
             $responseSpecies = Http::get('https://pokeapi.co/api/v2/pokemon-species/' . $i);
