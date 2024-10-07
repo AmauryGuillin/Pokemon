@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Attack;
+use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -20,7 +21,7 @@ class AttackSeeder extends Seeder
     public function run(): void
     {
 
-        for ($i = 1; $i <= 919; $i++) {
+        for ($i = 1; $i <= 166; $i++) {
             // Initiate a new Attack Object
             $attackModel = new Attack();
 
@@ -48,10 +49,30 @@ class AttackSeeder extends Seeder
                     }
                 }
 
+                // Get type
+                $storedTypes = Type::all();
+                $typeNamesUrl = $attack['type']['url'];
+                $typeNames = Http::get($typeNamesUrl);
+
+                foreach ($typeNames['names'] as $name) {
+                    if ($name['language']['name'] === self::LANGUAGE) {
+                        $retreivedType = $name['name'];
+                        break;
+                    }
+                }
+
+                foreach ($storedTypes->toArray() as $typeS) {
+                    if ($retreivedType === $typeS['name']) {
+                        $typeId = Type::where('name', $retreivedType)->first();
+                        $attackModel->type_id = $typeId->id;
+                        break;
+                    }
+                }
+
                 // Insert to DB
                 $attackModel->save();
             }
-            echo ("i = " . $i . "\n");
+            echo ("attack : " . $i . "\n");
         }
 
         echo 'Gen I attacks successfully added to DB';

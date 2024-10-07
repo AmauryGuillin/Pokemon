@@ -13,4 +13,9 @@ class Type extends Model
     {
         return $this->hasMany(Pokedex::class);
     }
+
+    public function attack()
+    {
+        return $this->hasMany(Attack::class);
+    }
 }

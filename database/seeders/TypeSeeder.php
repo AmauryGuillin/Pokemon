@@ -34,9 +34,11 @@ class TypeSeeder extends Seeder
 
                         // Insert to database
                         $typeModel->save();
+                        break;
                     }
                 }
             }
+            echo 'type : ' . $i . "\n";
         }
 
         echo 'Gen I types successfully added to DB';

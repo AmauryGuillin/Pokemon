@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('attacks', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->unsignedBigInteger('type_id')->nullable(); //PK
+            $table->foreign('type_id')->references('id')->on('types'); //PK
             $table->integer("pp");
             $table->integer("power")->nullable();
             $table->integer("accuracy")->nullable();
