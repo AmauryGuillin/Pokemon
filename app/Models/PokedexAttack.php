@@ -12,11 +12,11 @@ class PokedexAttack extends Model
 
     public function pokedex()
     {
-        return $this->hasMany(Pokedex::class);
+        return $this->belongsTo(Pokedex::class);
     }
 
     public function attack()
     {
-        return $this->hasMany(Attack::class);
+        return $this->belongsTo(Attack::class);
     }
 }

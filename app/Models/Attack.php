@@ -9,8 +9,8 @@ class Attack extends Model
 {
     use HasFactory;
 
-    public function pokedex()
+    public function pokedexes()
     {
-        return $this->hasMany(PokedexAttack::class);
+        return $this->belongsToMany(Pokedex::class, 'pokedex_attacks');
     }
 }

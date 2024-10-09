@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attack;
 use App\Models\Pokedex;
 use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -43,31 +44,31 @@ class PokedexSeeder extends Seeder
             $responsePokemon = Http::get('https://pokeapi.co/api/v2/pokemon/' . $i);
             $pokemon = $responsePokemon->json();
 
-            // number
+            // Number
             $pokedexModel->number = $pokemon['order'];
 
-            // image_artwork
+            // Image_artwork
             $pokedexModel->image_artwork = $pokemon['sprites']['other']['official-artwork']['front_default'];
 
-            // image_front
+            // Image_front
             $pokedexModel->image_front = $pokemon['sprites']['front_default'];
 
-            // image_back
+            // Image_back
             $pokedexModel->image_back = $pokemon['sprites']['back_default'];
 
-            // height
+            // Height
             $heightUnformatted = $pokemon['height'];
             $pokedexModel->height = $this->convertNumber($heightUnformatted, 'dm', 'm');
 
 
-            // weight
+            // Weight
             $weightUnformatted = $pokemon['weight'];
             $pokedexModel->weight = $this->convertNumber($weightUnformatted, 'dg', 'kg');
 
-            // cry
+            // Cry
             $pokedexModel->cry = $pokemon['cries']['legacy'];
 
-            // stats
+            // Stats
             foreach ($pokemon["stats"] as $stat) {
                 if ($stat['stat']['name'] === 'hp') $pokedexModel->stat_hp = $stat['base_stat'];
                 if ($stat['stat']['name'] === 'attack') $pokedexModel->stat_attack = $stat['base_stat'];
@@ -112,17 +113,17 @@ class PokedexSeeder extends Seeder
                                 $weaknessType = Type::where('name', $retrivedWeaknessName)->first();
                                 if ($weaknessType) {
                                     if ($countWeakness === 0) {
-                                        $pokedexModel->weakness_prime_id = $weaknessType->id; //weakness_prime_id
+                                        $pokedexModel->weakness_prime_id = $weaknessType->id; // Weakness_prime_id
                                     } elseif ($countWeakness === 1) {
-                                        $pokedexModel->weakness_second_id = $weaknessType->id; //weakness_second_id
+                                        $pokedexModel->weakness_second_id = $weaknessType->id; // Weakness_second_id
                                     } elseif ($countWeakness === 2) {
-                                        $pokedexModel->weakness_tertiary_id = $weaknessType->id; //weakness_tertiary_id
+                                        $pokedexModel->weakness_tertiary_id = $weaknessType->id; // Weakness_tertiary_id
                                     } elseif ($countWeakness === 3) {
-                                        $pokedexModel->weakness_fourth_id = $weaknessType->id; //weakness_fourth_id
+                                        $pokedexModel->weakness_fourth_id = $weaknessType->id; // Weakness_fourth_id
                                     } elseif ($countWeakness === 4) {
-                                        $pokedexModel->weakness_fifth_id = $weaknessType->id; //weakness_fifth_id
+                                        $pokedexModel->weakness_fifth_id = $weaknessType->id; // Weakness_fifth_id
                                     } elseif ($countWeakness === 5) {
-                                        $pokedexModel->weakness_sixth_id = $weaknessType->id; //weakness_sixth_id
+                                        $pokedexModel->weakness_sixth_id = $weaknessType->id; // Weakness_sixth_id
                                     }
                                     $countWeakness++;
                                 }
@@ -141,17 +142,17 @@ class PokedexSeeder extends Seeder
                                 $strengthType = Type::where('name', $retrivedStrengthName)->first();
                                 if ($strengthType) {
                                     if ($countStrength === 0) {
-                                        $pokedexModel->strengh_prime_id = $strengthType->id; //strengh_prime_id
+                                        $pokedexModel->strengh_prime_id = $strengthType->id; // Strengh_prime_id
                                     } elseif ($countStrength === 1) {
-                                        $pokedexModel->strengh_second_id = $strengthType->id; //strengh_second_id
+                                        $pokedexModel->strengh_second_id = $strengthType->id; // Strengh_second_id
                                     } elseif ($countStrength === 2) {
-                                        $pokedexModel->strengh_tertiary_id = $strengthType->id; //strengh_tertiary_id
+                                        $pokedexModel->strengh_tertiary_id = $strengthType->id; // Strengh_tertiary_id
                                     } elseif ($countStrength === 3) {
-                                        $pokedexModel->strengh_fourth_id = $strengthType->id; //strengh_fourth_id
+                                        $pokedexModel->strengh_fourth_id = $strengthType->id; // Strengh_fourth_id
                                     } elseif ($countStrength === 4) {
-                                        $pokedexModel->strengh_fifth_id = $strengthType->id; //strengh_fifth_id
+                                        $pokedexModel->strengh_fifth_id = $strengthType->id; // Strengh_fifth_id
                                     } elseif ($countStrength === 5) {
-                                        $pokedexModel->strengh_sixth_id = $strengthType->id; //strengh_sixth_id
+                                        $pokedexModel->strengh_sixth_id = $strengthType->id; // Strengh_sixth_id
                                     }
                                     $countStrength++;
                                 }
@@ -162,18 +163,11 @@ class PokedexSeeder extends Seeder
                 }
             }
 
-
-            //=====================TODO=====================
-            //**********************************************
-            //====================ATTACKS===================
-            //**********************************************
-            //=====================TODO=====================
-
-
+            // Get additionnal Pokemon info
             $responseSpecies = Http::get('https://pokeapi.co/api/v2/pokemon-species/' . $i);
             $pokemonSpecies = $responseSpecies->json();
 
-            // description
+            // Description
             foreach ($pokemonSpecies['flavor_text_entries'] as $description) {
                 if ($description['language']['name'] === self::LANGUAGE) {
                     $pokedexModel->description = $description['flavor_text'];
@@ -181,7 +175,7 @@ class PokedexSeeder extends Seeder
                 }
             }
 
-            // name
+            // Name
             foreach ($pokemonSpecies['names'] as $name) {
                 if ($name['language']['name'] === self::LANGUAGE) {
                     $pokedexModel->name = $name['name'];
@@ -189,7 +183,7 @@ class PokedexSeeder extends Seeder
                 }
             }
 
-            // category
+            // Category
             foreach ($pokemonSpecies['genera'] as $category) {
                 if ($category['language']['name'] === self::LANGUAGE) {
                     $pokedexModel->category = $category['genus'];
@@ -197,7 +191,7 @@ class PokedexSeeder extends Seeder
                 }
             }
 
-            // evolve_from 
+            // Evolve_from 
             if (!is_null($pokemonSpecies['evolves_from_species'])) {
                 $evolvesFromUrl = $pokemonSpecies['evolves_from_species']['url'];
                 $responseEvolvesFrom = Http::get($evolvesFromUrl);
@@ -212,7 +206,7 @@ class PokedexSeeder extends Seeder
                 $pokedexModel->evolve_from = null;
             }
 
-            // evolve_to
+            // Evolve_to
             $responseEvolution = Http::get($pokemonSpecies['evolution_chain']['url']);
             $evolutionChain = $responseEvolution->json();
 
@@ -241,6 +235,24 @@ class PokedexSeeder extends Seeder
             }
 
             $pokedexModel->save();
+
+            // Attacks
+            foreach ($pokemon['moves'] as $move) {
+                $moveNamesUrl = $move['move']['url'];
+                $moveData = Http::get($moveNamesUrl)->json();
+
+                foreach ($moveData['names'] as $moveName) {
+                    if ($moveName['language']['name'] === self::LANGUAGE) {
+                        $retrievedMoveName = $moveName['name'];
+                        $attack = Attack::where('name', $retrievedMoveName)->first();
+
+                        if ($attack) {
+                            $pokedexModel->attacks()->attach($attack->id);
+                        }
+                        break;
+                    }
+                }
+            }
 
             echo ('pokemon : ' . $i . "\n");
         }

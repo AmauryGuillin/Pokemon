@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pokedex_attacks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pokedex_id');
+            $table->unsignedBigInteger('pokedex_id')->nullable();
             $table->foreign('pokedex_id')->references('id')->on('pokedexes');
             $table->unsignedBigInteger('attack_id');
             $table->foreign('attack_id')->references('id')->on('attacks');

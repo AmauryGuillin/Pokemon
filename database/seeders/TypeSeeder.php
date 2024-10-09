@@ -24,20 +24,18 @@ class TypeSeeder extends Seeder
             $response = Http::get('https://pokeapi.co/api/v2/type/' . $i);
             $type = $response->json();
 
-            // Check if type is from generation I
-            if ($type['generation']['name'] === 'generation-i') {
-                // Browse names and filter by language
-                foreach ($type['names'] as $name) {
-                    if ($name['language']['name'] === self::LANGUAGE) {
-                        $typeModel = new Type();
-                        $typeModel->name = $name['name'];
+            // Browse names and filter by language
+            foreach ($type['names'] as $name) {
+                if ($name['language']['name'] === self::LANGUAGE) {
+                    $typeModel = new Type();
+                    $typeModel->name = $name['name'];
 
-                        // Insert to database
-                        $typeModel->save();
-                        break;
-                    }
+                    // Insert to database
+                    $typeModel->save();
+                    break;
                 }
             }
+
             echo 'type : ' . $i . "\n";
         }
 
