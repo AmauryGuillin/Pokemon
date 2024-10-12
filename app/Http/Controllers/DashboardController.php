@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pokedex;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
-use function Pest\Laravel\get;
-
-class PokemonController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        // Get all pokemon
-        $pokemons = Pokedex::all();
-
-        return Inertia::render('Pokedex/Pokedex', ['pokemons' => $pokemons]);
+        return Inertia::Render('Dashboard');
     }
 
     /**
@@ -44,14 +36,7 @@ class PokemonController extends Controller
      */
     public function show(string $id)
     {
-
-        $pokemonSelected = Pokedex::where('name', $id)->first();
-
-        if (!$pokemonSelected) {
-            return redirect()->route('pokedex.index')->with('error', 'Le Pokémon demandé n\'existe pas.');
-        }
-
-        return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected]);
+        //
     }
 
     /**

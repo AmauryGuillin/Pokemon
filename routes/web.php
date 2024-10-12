@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -15,7 +16,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [PokemonController::class, "index"])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, "index"])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/pokedex', [PokemonController::class, "index"])->middleware(['auth', 'verified'])->name('pokedex');
 Route::get('/pokedex/{id}', [PokemonController::class, "show"])->middleware(['auth', 'verified'])->name('singlePokemon');
 
 Route::middleware('auth')->group(function () {
