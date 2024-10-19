@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Link } from "@inertiajs/vue3";
+import { Badge } from "./ui/badge";
+import {toRaw} from "vue";
 
 const props = defineProps<{
     pokemon: any;
@@ -20,6 +22,19 @@ const props = defineProps<{
                     class="size-1/2"
                 />
             </CardContent>
+            <CardFooter>
+                <Badge
+                    :style="{ backgroundColor: pokemon.type_prime.color.value }"
+                    >{{ pokemon.type_prime.name }}</Badge
+                >
+                <Badge
+                    :style="{
+                        backgroundColor: pokemon.type_second.color.value,
+                    }"
+                    v-if="pokemon.type_second_id"
+                    >{{ pokemon.type_second.name }}</Badge
+                >
+            </CardFooter>
         </Card>
     </Link>
 </template>

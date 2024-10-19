@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pokemon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,7 +13,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::Render('Dashboard');
+
+        $pikachuImage = Pokemon::where('name', 'Pikachu')->first()->image_front;
+        $salamecheImage = Pokemon::where('name', 'Salamèche')->first()->image_front;
+
+        return Inertia::Render('Dashboard', ['pikachuImage' => $pikachuImage, 'salamecheImage' => $salamecheImage]);
     }
 
     /**

@@ -20,7 +20,7 @@ class TypeSeeder extends Seeder
     public function run(): void
     {
 
-        for ($i = 1; $i <= 19; $i++) {
+        for ($i = 1; $i < 19; $i++) {
             $response = Http::get('https://pokeapi.co/api/v2/type/' . $i);
             $type = $response->json();
 

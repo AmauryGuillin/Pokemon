@@ -11,11 +11,16 @@ class Type extends Model
 
     public function pokedex()
     {
-        return $this->hasMany(Pokedex::class);
+        return $this->hasMany(Pokemon::class);
     }
 
     public function attack()
     {
         return $this->hasMany(Attack::class);
+    }
+
+    public function color()
+    {
+        return $this->hasOne(Color::class, 'name', 'name');
     }
 }

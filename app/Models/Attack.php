@@ -11,6 +11,6 @@ class Attack extends Model
 
     public function pokedexes()
     {
-        return $this->belongsToMany(Pokedex::class, 'pokedex_attacks');
+        return $this->belongsToMany(Pokemon::class, 'pokedex_attacks');
     }
 }
