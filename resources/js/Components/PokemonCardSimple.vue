@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/Components/ui/card";
 import { Link } from "@inertiajs/vue3";
 import { Badge } from "./ui/badge";
-import {toRaw} from "vue";
 
 const props = defineProps<{
     pokemon: any;

@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import PokemonCardSimple from "@/Components/PokemonCardSimple.vue";
+import { Badge } from "@/Components/ui/badge";
 import { Input } from "@/Components/ui/input";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { Search } from "lucide-vue-next";
-import {computed, ref, toRaw} from "vue";
-import {Badge} from "@/Components/ui/badge";
+import { ref } from "vue";
 
 const props = defineProps<{
     pokemons: any;
-    types: any
+    types: any;
 }>();
 
 const searchWord = ref("");
 function searchPokemon(input: string) {
     searchWord.value = input.toLowerCase().trim();
 }
-
 </script>
 
 <template>
@@ -39,16 +38,17 @@ function searchPokemon(input: string) {
                         <Search class="size-6 text-muted-foreground" />
                     </span>
                 </div>
-                <div class="pt-4 flex justify-center items-center gap-2 flex-wrap">
-                    <div v-for="type in types" >
+                <div
+                    class="pt-4 flex justify-center items-center gap-2 flex-wrap"
+                >
+                    <div v-for="type in types">
                         <Badge
                             class="cursor-pointer hover:scale-[1.05] transition-all"
                             :style="{ backgroundColor: type.color.value }"
-                        >{{ type.name }}</Badge
+                            >{{ type.name }}</Badge
                         >
                     </div>
                 </div>
-
             </div>
             <div
                 class="grid justify-center grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mx-2 lg:mx-48"
