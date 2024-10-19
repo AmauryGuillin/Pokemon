@@ -36,7 +36,7 @@ const props = defineProps<{
                     <CardHeader>
                         <CardTitle>Le Pokedex</CardTitle>
                         <CardDescription
-                            >Pokemon de la 1ere génération</CardDescription
+                            >Pokémon de la 1<sup>ère</sup> génération</CardDescription
                         >
                     </CardHeader>
                     <CardContent class="flex justify-center items-center">
