@@ -6,7 +6,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { Search } from "lucide-vue-next";
 import { ref } from "vue";
-import {createLogger} from "vite";
 
 const props = defineProps<{
     pokemons: any;
