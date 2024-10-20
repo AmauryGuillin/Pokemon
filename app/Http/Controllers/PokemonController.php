@@ -15,7 +15,6 @@ class PokemonController extends Controller
      */
     public function index()
     {
-
         // Get all pokémon
         $allPokemons = Pokemon::all()->load(['typePrime', 'typePrime.color', 'typeSecond', 'typeSecond.color']);
         $allTypes = Type::all()->load('color');
@@ -43,7 +42,6 @@ class PokemonController extends Controller
      */
     public function show(string $id)
     {
-
         $pokemonSelected = Pokemon::with(['typePrime.color', 'typeSecond.color', 'evolveFrom', 'evolveTo'])
             ->where('name', $id)->first();
 
@@ -75,6 +73,10 @@ class PokemonController extends Controller
 
         $objects['allAttacks'] = $attackList;
 
+        // Get evolutions
+        $evolutions = $this->evolutionsFinder($pokemonSelected);
+        $objects['evolutions'] = $evolutions;
+
         return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected, 'objects' => $objects]);
     }
 
@@ -100,5 +102,55 @@ class PokemonController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function evolutionsFinder(Pokemon $input)
+    {
+        $evolutions = [];
+
+        if ($input['evolve_from']) {
+            $first = null;
+            $selector = $input;
+
+            if ($selector['evolve_to'] && $selector['evolve_from']) {
+                $evolutions['middle'] = $selector;
+            }
+
+            while ($selector && $selector->evolve_from) {
+                $selector = Pokemon::where('name', $selector->evolve_from)->first();
+                if ($selector) {
+                    $first = $selector;
+                }
+                if ($selector['evolve_to'] && $selector['evolve_from']) {
+                    $evolutions['middle'] = $selector;
+                }
+            }
+            $evolutions['first'] = $first;
+        } else {
+            $evolutions['first'] = $input;
+        }
+        if ($input['evolve_to']) {
+            $first = null;
+            $selector = $input;
+
+            if ($selector['evolve_to'] && $selector['evolve_from']) {
+                $evolutions['middle'] = $selector;
+            }
+
+            while ($selector && $selector->evolve_to) {
+                $selector = Pokemon::where('name', $selector->evolve_to)->first();
+                if ($selector) {
+                    $first = $selector;
+                }
+                if ($selector['evolve_to'] && $selector['evolve_from']) {
+                    $evolutions['middle'] = $selector;
+                }
+            }
+            $evolutions['last'] = $first;
+        } else {
+            $evolutions['last'] = $input;
+        }
+
+        return $evolutions;
     }
 }

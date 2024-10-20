@@ -6,6 +6,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { Search } from "lucide-vue-next";
 import { ref } from "vue";
+import {Separator} from "@/Components/ui/separator";
 
 const props = defineProps<{
     pokemons: any;
