@@ -10,7 +10,6 @@ import {
 } from "@/Components/ui/dialog";
 import {Badge} from "@/Components/ui/badge";
 import {Button} from "@/Components/ui/button";
-import {toRaw} from "vue";
 
 const props = defineProps<{
     pokemon: any;
