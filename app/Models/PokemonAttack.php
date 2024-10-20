@@ -10,7 +10,7 @@ class PokemonAttack extends Model
     use HasFactory;
 
 
-    public function pokedex()
+    public function pokemon()
     {
         return $this->belongsTo(Pokemon::class);
     }

@@ -12,7 +12,10 @@ const props = defineProps<{
     <Link :href="`/pokedex/${pokemon.name}`">
         <Card class="hover:scale-[1.03] cursor-pointer transition-all">
             <CardHeader>
-                <CardTitle class="capitalize">{{ pokemon.name }}</CardTitle>
+                <CardTitle class="flex justify-between items-center">
+                    <span class="capitalize">{{ pokemon.name }}</span>
+                    <span class="text-lg font-bold">#{{ String(pokemon.number ).padStart("3", 0)}}</span>
+                </CardTitle>
             </CardHeader>
             <CardContent class="flex justify-center items-center">
                 <img
@@ -21,7 +24,7 @@ const props = defineProps<{
                     class="size-1/2"
                 />
             </CardContent>
-            <CardFooter>
+            <CardFooter class="gap-2">
                 <Badge
                     :style="{ backgroundColor: pokemon.type_prime.color.value }"
                     >{{ pokemon.type_prime.name }}</Badge

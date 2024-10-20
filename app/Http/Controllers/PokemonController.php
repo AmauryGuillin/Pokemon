@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Color;
 use App\Models\Pokemon;
+use App\Models\PokemonAttack;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -62,8 +63,13 @@ class PokemonController extends Controller
         $objects['typeSecondColor'] = $pokemonSelected->typeSecond->color->value ?? null;
         $objects['typeSecond'] = $pokemonSelected->typeSecond->name ?? null;
 
+        $attacks = [];
 
-        $objects['evolutions'] = $this->getEvolutionChain($pokemonSelected);
+        $displayedAttacks = PokemonAttack::where('pokemon_id', $pokemonSelected->id)->with('attack')->take(2)->get();
+
+        $attacks['attack_one'] = $displayedAttacks[0]['attack']['name'];
+        $attacks['attack_two'] = $displayedAttacks[1]['attack']['name'];
+        $objects['attackNames'] = $attacks;
 
 
         return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected, 'objects' => $objects]);
@@ -91,40 +97,5 @@ class PokemonController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function getEvolutionChain($selectedPokemon)
-    {
-        $evolutions = [
-            'first' => null,
-            'middle' => null,
-            'last' => null,
-        ];
-
-        if (!$selectedPokemon->evolve_from) {
-            $evolutions['first'] = $selectedPokemon;
-        } else {
-            $evolveFirst = Pokemon::where('name', $selectedPokemon->evolve_from)->first();
-            $evolutions['first'] = $evolveFirst;
-            if ($evolveFirst && !$evolveFirst->evolve_from) {
-                $evolutions['middle'] = $selectedPokemon;
-            }
-        }
-
-        if ($selectedPokemon->evolve_to) {
-            $evolutions['middle'] = $selectedPokemon;
-            $evolveTo = Pokemon::where('name', $selectedPokemon->evolve_to)->first();
-            if ($evolveTo) {
-                $evolutions['last'] = $evolveTo;
-            }
-        } else if (!$evolutions['middle']) {
-            $evolutions['middle'] = $selectedPokemon;
-        }
-
-        if (!$selectedPokemon->evolve_to) {
-            $evolutions['last'] = $selectedPokemon;
-        }
-
-        return $evolutions;
     }
 }

@@ -77,7 +77,7 @@ function searchByType(input: string) {
                     :pokemon="pokemon"
                 />
             </div>
-            <div v-else class="text-center font-bold p-48">
+            <div v-else class="flex justify-center items-center font-bold h-full">
                 <span>Aucun Pokémon trouvé.</span>
             </div>
         </div>
