@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="grid grid-cols-[15%_5%_70%] ml-10 items-center">
+    <div class="grid grid-cols-[20%_10%_70%] ml-10 items-center">
         <span><slot /></span>
         <span>{{ value }}</span>
         <ProgressStats :color="color" :model-value="value"></ProgressStats>

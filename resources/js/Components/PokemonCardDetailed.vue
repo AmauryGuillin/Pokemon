@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import Stats from "./Stats.vue";
+import Stats from "@/Components/Stats.vue";
 import Separator from "./ui/separator/Separator.vue";
 import PokemonCardDetails from "@/Components/PokemonCardDetails.vue";
+import { ChevronsRight } from "lucide-vue-next";
 import { toRaw } from "vue";
+import { Badge } from "@/Components/ui/badge";
 
 const props = defineProps<{
     pokemon: any;
@@ -41,47 +43,50 @@ const stats = [
 
 <template>
     <div
-        class="w-3/4 h-3/4 rounded-xl flex justify-center items-center drop-shadow-xl"
+        class="size-2/3 rounded-xl 2xl:flex justify-center items-center drop-shadow-xl grid"
         :style="{ backgroundColor: objects.typePrimeColor }"
     >
-        <div class="w-1/2 h-full flex flex-col justify-center items-center">
-            <div class="flex justify-between items-center w-full">
-                <span
-                    class="font-bold text-white text-4xl pb-5 pl-5 underline"
-                    >{{ pokemon.name }}</span
+        <section class="lg:w-1/2 h-full">
+            <header>
+                <h1
+                    class="flex justify-between items-baseline text-white text-3xl font-bold p-5"
                 >
-                <span class="font-bold text-white text-4xl pb-5 pr-5"
-                    >#{{ String(pokemon.id).padStart(3, "0") }}</span
-                >
+                    <span class="underline">{{ pokemon.name }}</span>
+                    <span>#{{ String(pokemon.number).padStart(3, "0") }}</span>
+                </h1>
+            </header>
+            <div class="flex justify-center">
+                <img
+                    :src="pokemon.image_artwork"
+                    alt=""
+                    class="size-1/2 z-10"
+                />
             </div>
-            <img :src="pokemon.image_artwork" alt="" class="size-1/2 z-10" />
-
-            <div
-                class="w-full h-1/4 flex flex-col justify-center items-center gap-5 bg-white"
-            >
-                <div class="flex justify-center items-center w-full gap-5 pt-5">
-                    <span
+            <div class="bg-white h-1/4">
+                <section class="flex gap-5 justify-center pt-5">
+                    <Badge
+                        class="text-black font-bold px-4 py-1 cursor-pointer hover:scale-[1.03] transition-all duration-150"
                         :style="{ backgroundColor: objects.typePrimeColor }"
-                        class="rounded-full p-2 text-center font-bold w-1/6 cursor-pointer hover:scale-[1.03] transition-all duration-150"
-                        >{{ objects.typePrime }}</span
                     >
-                    <span
-                        v-if="objects.typeSecond"
+                        {{ objects.typePrime }}
+                    </Badge>
+                    <Badge
+                        class="text-black font-bold px-4 py-1 cursor-pointer hover:scale-[1.03] transition-all duration-150"
                         :style="{ backgroundColor: objects.typeSecondColor }"
-                        class="rounded-full p-2 text-center font-bold w-1/6 cursor-pointer hover:scale-[1.03] transition-all duration-150"
-                        >{{ objects.typeSecond }}</span
                     >
-                </div>
-                <Separator />
-                <div class="w-full text-center text-wrap">
-                    <p class="sm:text-sm md:text-md lg:text-lg">
+                        {{ objects.typeSecond }}
+                    </Badge>
+                </section>
+                <Separator class="my-5" />
+                <section class="flex justify-center">
+                    <p class="sm:text-xs md:text-sm lg:text-md">
                         {{ pokemon.description }}
                     </p>
-                </div>
+                </section>
             </div>
-        </div>
+        </section>
         <div
-            class="w-1/2 h-[98%] bg-gray-200 rounded-tl-3xl rounded-bl-3xl drop-shadow-2xl flex flex-col justify-between"
+            class="lg:w-1/2 h-[98%] bg-gray-200 rounded-tl-3xl rounded-bl-3xl drop-shadow-2xl grid gap-5 justify-between p-5"
         >
             <div>
                 <PokemonCardDetails :pokemon="pokemon" :objects="objects" />
@@ -97,68 +102,47 @@ const stats = [
             </div>
             <div class="">
                 <div class="grid grid-cols-5 w-full text-center p-5">
-                    <div>
+                    <div v-if="objects.evolutions.first">
                         <img
                             :src="objects.evolutions.first.image_artwork"
                             :alt="objects.evolutions.name"
                         />
-                        <span>{{ objects.evolutions.first.name }}</span>
+                        <span class="font-bold">{{
+                            objects.evolutions.first.name
+                        }}</span>
                     </div>
                     <div
                         v-if="
-                            objects.evolutions.middle || objects.evolutions.last
+                            objects.evolutions.first &&
+                            objects.evolutions.middle
                         "
                         class="flex justify-center items-center"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="lucide lucide-chevrons-right"
-                        >
-                            <path d="m6 17 5-5-5-5" />
-                            <path d="m13 17 5-5-5-5" />
-                        </svg>
+                        <ChevronsRight />
                     </div>
                     <div v-if="objects.evolutions.middle">
                         <img
                             :src="objects.evolutions.middle.image_artwork"
                             :alt="objects.evolutions.name"
                         />
-                        <span>{{ objects.evolutions.middle.name }}</span>
+                        <span class="font-bold">{{
+                            objects.evolutions.middle.name
+                        }}</span>
                     </div>
                     <div
                         v-if="objects.evolutions.middle"
                         class="flex justify-center items-center"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="lucide lucide-chevrons-right"
-                        >
-                            <path d="m6 17 5-5-5-5" />
-                            <path d="m13 17 5-5-5-5" />
-                        </svg>
+                        <ChevronsRight />
                     </div>
                     <div v-if="objects.evolutions.last">
                         <img
                             :src="objects.evolutions.last.image_artwork"
                             :alt="objects.evolutions.name"
                         />
-                        <span>{{ objects.evolutions.last.name }}</span>
+                        <span class="font-bold">{{
+                            objects.evolutions.last.name
+                        }}</span>
                     </div>
                 </div>
             </div>

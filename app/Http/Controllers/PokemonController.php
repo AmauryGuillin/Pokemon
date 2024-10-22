@@ -126,6 +126,7 @@ class PokemonController extends Controller
                 }
             }
             $evolutions['first'] = $first;
+            //dd($evolutions);
         } else {
             $evolutions['first'] = $input;
         }
