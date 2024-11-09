@@ -18,6 +18,7 @@ class PokemonController extends Controller
         // Get all pokémon
         $allPokemons = Pokemon::all()->load(['typePrime', 'typePrime.color', 'typeSecond', 'typeSecond.color']);
         $allTypes = Type::all()->load('color');
+        //dd($allPokemons[0]);
         return Inertia::render('Pokedex/Pokedex', ['pokemons' => $allPokemons, 'types' => $allTypes]);
     }
 
