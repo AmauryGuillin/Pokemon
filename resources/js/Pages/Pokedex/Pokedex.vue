@@ -203,6 +203,9 @@ function removeFilters() {
                     </div>
                 </Card>
             </section>
+            <!-------------------->
+            <!-- Desktop View -->
+            <!-------------------->
             <section
                 class="hidden sm:flex bg-white rounded-xl mx-4 my-3 p-3 flex-1 space-y-3 shadow-inner overflow-y-auto"
             >
