@@ -175,6 +175,13 @@ function removeFilters() {
                 class="hidden sm:flex bg-white rounded-xl mx-4 my-3 p-3 flex-1 space-y-3 shadow-inner overflow-y-auto"
             >
                 <div
+                    v-if="usablePokemonList.length === 0"
+                    class="w-full text-center"
+                >
+                    <p class="font-bold p-5">Aucun Pokémon n'a été trouvé !</p>
+                </div>
+                <div
+                    v-if="usablePokemonList.length > 0"
                     class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full h-fit gap-3"
                 >
                     <div v-for="pokemon in usablePokemonList">
