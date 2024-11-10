@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import PokemonCardPokedexD from "@/Components/PokemonCardPokedexD.vue";
+import PokemonCardPokedexM from "@/Components/PokemonCardPokedexM.vue";
 import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
-import { Card } from "@/Components/ui/card";
 import {
     Drawer,
     DrawerContent,
@@ -161,47 +162,11 @@ function removeFilters() {
                 >
                     <p class="font-bold p-5">Aucun Pokémon n'a été trouvé !</p>
                 </div>
-                <Card
-                    v-if="usablePokemonList.length > 0"
-                    v-for="pokemon in usablePokemonList"
-                    class="max-h-1/5 grid grid-cols-[2fr_1fr] bg-[#F0ECF3] cursor-pointer"
-                >
-                    <div class="pl-3 flex flex-col justify-evenly">
-                        <div>
-                            N°{{ String(pokemon.number).padStart(3, "0") }}
-                        </div>
-                        <div class="font-bold text-xl capitalize">
-                            {{ pokemon.name }}
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <Badge
-                                :style="{
-                                    backgroundColor:
-                                        pokemon.type_prime.color.value,
-                                }"
-                                >{{ pokemon.type_prime.name }}
-                            </Badge>
-                            <Badge
-                                :style="{
-                                    backgroundColor:
-                                        pokemon.type_second.color.value,
-                                }"
-                                v-if="pokemon.type_second_id"
-                                >{{ pokemon.type_second.name }}
-                            </Badge>
-                        </div>
-                    </div>
-                    <div>
-                        <img
-                            :src="pokemon.image_artwork"
-                            :alt="pokemon.name"
-                            class="rounded-lg border-2 border-[#F0ECF3]"
-                            :style="{
-                                backgroundColor: pokemon.type_prime.color.value,
-                            }"
-                        />
-                    </div>
-                </Card>
+                <div v-for="pokemon in usablePokemonList">
+                    <PokemonCardPokedexM
+                        :pokemon="pokemon"
+                    ></PokemonCardPokedexM>
+                </div>
             </section>
             <!-------------------->
             <!-- Desktop View -->
@@ -210,59 +175,12 @@ function removeFilters() {
                 class="hidden sm:flex bg-white rounded-xl mx-4 my-3 p-3 flex-1 space-y-3 shadow-inner overflow-y-auto"
             >
                 <div
-                    id="content"
                     class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full h-fit gap-3"
                 >
-                    <div
-                        id="card"
-                        v-for="pokemon in usablePokemonList"
-                        class="border-2 rounded-2xl shadow-lg cursor-pointer hover:scale-[1.03] transition-all"
-                    >
-                        <div
-                            id="number"
-                            class="flex justify-between items-center px-4 py-2 font-semibold text-lg text-white rounded-t-xl"
-                            :style="{
-                                backgroundColor: `rgba(${parseInt(pokemon.type_prime.color.value.slice(1, 3), 16)}, 
-                             ${parseInt(pokemon.type_prime.color.value.slice(3, 5), 16)}, 
-                             ${parseInt(pokemon.type_prime.color.value.slice(5, 7), 16)}, 0.8)`,
-                            }"
-                        >
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M14.8572 12C14.8572 13.578 13.578 14.8571 12.0001 14.8571C10.4221 14.8571 9.14292 13.578 9.14292 12C9.14292 10.422 10.4221 9.14286 12.0001 9.14286C13.578 9.14286 14.8572 10.422 14.8572 12Z"
-                                    fill="white"
-                                />
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M12.0001 24C18.0454 24 23.0467 19.5296 23.8785 13.7143H16.8503C16.1443 15.7118 14.2393 17.1429 12.0001 17.1429C9.76083 17.1429 7.85584 15.7118 7.14984 13.7143H0.121582C0.953404 19.5296 5.95468 24 12.0001 24ZM7.14984 10.2857H0.121582C0.953404 4.47035 5.95468 0 12.0001 0C18.0454 0 23.0467 4.47035 23.8785 10.2857H16.8503C16.1443 8.28824 14.2393 6.85714 12.0001 6.85714C9.76083 6.85714 7.85584 8.28824 7.14984 10.2857ZM14.8572 12C14.8572 13.578 13.578 14.8571 12.0001 14.8571C10.4221 14.8571 9.14292 13.578 9.14292 12C9.14292 10.422 10.4221 9.14286 12.0001 9.14286C13.578 9.14286 14.8572 10.422 14.8572 12Z"
-                                    fill="white"
-                                />
-                            </svg>
-                            N°{{ String(pokemon.number).padStart(3, "0") }}
-                        </div>
-                        <div
-                            id="image"
-                            class="flex justify-center items-center"
-                        >
-                            <img
-                                :src="pokemon.image_artwork"
-                                alt=""
-                                class="size-2/4"
-                            />
-                        </div>
-                        <div
-                            id="name"
-                            class="flex justify-center items-center text-2xl font-bold mb-3"
-                        >
-                            {{ pokemon.name }}
-                        </div>
+                    <div v-for="pokemon in usablePokemonList">
+                        <PokemonCardPokedexD
+                            :pokemon="pokemon"
+                        ></PokemonCardPokedexD>
                     </div>
                 </div>
             </section>
