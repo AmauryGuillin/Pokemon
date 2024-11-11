@@ -5,6 +5,14 @@ import PokemonCardPokedexM from "@/Components/PokemonCardPokedexM.vue";
 import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
 import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/Components/ui/dialog";
+import {
     Drawer,
     DrawerContent,
     DrawerDescription,
@@ -88,7 +96,10 @@ function removeFilters() {
                             <Search class="size-6 text-muted-foreground" />
                         </span>
                     </div>
-                    <div>
+                    <!-------------------->
+                    <!-- Mobile View drawer -->
+                    <!-------------------->
+                    <div class="sm:hidden">
                         <Drawer>
                             <DrawerTrigger>
                                 <Button variant="outline" size="icon">
@@ -122,6 +133,43 @@ function removeFilters() {
                                 </DrawerDescription>
                             </DrawerContent>
                         </Drawer>
+                    </div>
+                    <!-------------------->
+                    <!-- Mobile View dialog -->
+                    <!-------------------->
+                    <div class="hidden sm:block">
+                        <Dialog>
+                            <DialogTrigger>
+                                <Button variant="outline" size="icon">
+                                    <Filter />
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Tri par type</DialogTitle>
+                                    <DialogDescription
+                                        class="flex justify-center items-center flex-wrap gap-3 p-5"
+                                    >
+                                        <Badge
+                                            v-for="type in types"
+                                            class="cursor-pointer hover:scale-[1.05] transition-all"
+                                            :class="{
+                                                'border-2 border-red-500':
+                                                    searchType === type.name,
+                                            }"
+                                            :style="{
+                                                backgroundColor:
+                                                    searchType === type.name
+                                                        ? 'gray'
+                                                        : type.color.value,
+                                            }"
+                                            @click="searchByType(type.name)"
+                                            >{{ type.name }}</Badge
+                                        >
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
                     </div>
                     <div>
                         <Button
