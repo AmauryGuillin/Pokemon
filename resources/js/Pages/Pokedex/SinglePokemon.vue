@@ -12,7 +12,7 @@ defineProps<{
 <template>
     <Head :title="'Pokedex - ' + pokemon.name" />
     <AuthenticatedLayout>
-        <div class="flex justify-center w-full h-screen p-10">
+        <div class="w-full h-[calc(100vh-4rem)]">
             <PokemonCardDetailed :pokemon="pokemon" :objects="objects" />
         </div>
     </AuthenticatedLayout>

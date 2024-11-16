@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import Stats from "@/Components/Stats.vue";
-import Separator from "./ui/separator/Separator.vue";
-import PokemonCardDetails from "@/Components/PokemonCardDetails.vue";
-import { ChevronsRight } from "lucide-vue-next";
+import { Link } from "@inertiajs/vue3";
+import { ArrowLeft, Ruler, Swords, Weight } from "lucide-vue-next";
 import { toRaw } from "vue";
-import { Badge } from "@/Components/ui/badge";
+import PokeBallSvg from "./PokeBallSvg.vue";
+import Stats from "./Stats.vue";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
 const props = defineProps<{
     pokemon: any;
@@ -19,79 +20,170 @@ const stats = [
         value: Number(props.pokemon.stat_hp),
     },
     {
-        title: "Attaque",
+        title: "ATK",
         value: Number(props.pokemon.stat_attack),
     },
     {
-        title: "Défense",
+        title: "DEF",
         value: Number(props.pokemon.stat_defense),
     },
     {
-        title: "Attaque spé",
+        title: "SATK",
         value: Number(props.pokemon.stat_special_attack),
     },
     {
-        title: "Défense spé",
+        title: "SDEF",
         value: Number(props.pokemon.stat_special_defense),
     },
     {
-        title: "Vitesse",
+        title: "VIT",
         value: Number(props.pokemon.stat_speed),
     },
 ];
 </script>
 
 <template>
-    <div
-        class="size-2/3 rounded-xl 2xl:flex justify-center items-center drop-shadow-xl grid"
-        :style="{ backgroundColor: objects.typePrimeColor }"
+    <section
+        class="w-full h-full relative font-poppins"
+        :style="{ backgroundColor: pokemon.type_prime.color.value }"
     >
-        <section class="lg:w-1/2 h-full">
-            <header>
-                <h1
-                    class="flex justify-between items-baseline text-white text-3xl font-bold p-5"
-                >
-                    <span class="underline">{{ pokemon.name }}</span>
-                    <span>#{{ String(pokemon.number).padStart(3, "0") }}</span>
-                </h1>
+        <section class="h-full">
+            <header
+                class="w-full text-white flex justify-between items-center p-5"
+            >
+                <div class="flex justify-center items-center gap-3">
+                    <Link :href="`/pokedex`">
+                        <Button variant="ghost" size="icon">
+                            <ArrowLeft class="stroke-white scale-150" />
+                        </Button>
+                    </Link>
+                    <p class="font-bold text-2xl">{{ pokemon.name }}</p>
+                </div>
+                <p class="font-bold">
+                    N°{{ String(pokemon.number).padStart(3, "0") }}
+                </p>
             </header>
-            <div class="flex justify-center">
-                <img
-                    :src="pokemon.image_artwork"
-                    alt=""
-                    class="size-1/2 z-10"
-                />
-            </div>
-            <div class="bg-white h-1/4">
-                <section class="flex gap-5 justify-center pt-5">
-                    <Badge
-                        class="text-black font-bold px-4 py-1 cursor-pointer hover:scale-[1.03] transition-all duration-150"
-                        :style="{ backgroundColor: objects.typePrimeColor }"
+            <section class="flex flex-col h-[calc(100%-80px)]">
+                <div class="h-[25%]"></div>
+                <div
+                    class="flex-1 items-end border-2 m-1 mb-2 rounded-xl bg-[#EFEFEF] shadow-lg relative"
+                >
+                    <div class="flex justify-center items-center mt-14 gap-4">
+                        <Badge
+                            :style="{
+                                backgroundColor: pokemon.type_prime.color.value,
+                            }"
+                            >{{ pokemon.type_prime.name }}
+                        </Badge>
+                        <Badge
+                            :style="{
+                                backgroundColor:
+                                    pokemon.type_second.color.value,
+                            }"
+                            v-if="pokemon.type_second_id"
+                            >{{ pokemon.type_second.name }}
+                        </Badge>
+                    </div>
+                    <div
+                        class="w-full text-center mt-4 font-bold text-lg"
+                        :style="{ color: pokemon.type_prime.color.value }"
                     >
-                        {{ objects.typePrime }}
-                    </Badge>
-                    <Badge
-                        class="text-black font-bold px-4 py-1 cursor-pointer hover:scale-[1.03] transition-all duration-150"
-                        :style="{ backgroundColor: objects.typeSecondColor }"
-                    >
-                        {{ objects.typeSecond }}
-                    </Badge>
-                </section>
-                <Separator class="my-5" />
-                <section class="flex justify-center">
-                    <p class="sm:text-xs md:text-sm lg:text-md">
+                        A propos
+                    </div>
+                    <div class="grid grid-cols-3 mt-5 w-full">
+                        <div
+                            class="grid justify-center items-center gap-3 border-r-2 border-gray-300 text-center"
+                        >
+                            <div class="flex justify-center items-center gap-2">
+                                <Weight />
+                                <div class="text-sm font-semibold w-full">
+                                    {{ pokemon.weight }} kg
+                                </div>
+                            </div>
+                            <div class="font-light">Poids</div>
+                        </div>
+                        <div
+                            class="grid justify-center items-center gap-3 border-r-2 border-gray-300 text-center"
+                        >
+                            <div class="flex justify-center items-center gap-2">
+                                <Ruler />
+                                <div class="text-sm font-semibold w-full">
+                                    {{ pokemon.height }} m
+                                </div>
+                            </div>
+                            <div class="font-light">Taille</div>
+                        </div>
+                        <div
+                            class="grid justify-center items-center h-full w-full gap-2 text-center"
+                        >
+                            <div class="flex justify-center items-center gap-2">
+                                <Swords />
+                                <div class="text-sm font-semibold w-full">
+                                    Attaques
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center gap-4">
+                                <div
+                                    class="flex flex-col justify-center items-start"
+                                >
+                                    <span
+                                        v-for="attack in objects.attackNames"
+                                        class="text-xs"
+                                    >
+                                        {{ attack }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <AttacksDialog
+                                        :objects="objects"
+                                        :pokemon="pokemon"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 w-full text-sm text-center">
                         {{ pokemon.description }}
-                    </p>
-                </section>
-            </div>
+                    </div>
+                    <div>
+                        <div
+                            class="w-full text-center mt-4 font-bold text-lg"
+                            :style="{ color: pokemon.type_prime.color.value }"
+                        >
+                            Statistiques de base
+                        </div>
+                        <div class="px-4 pt-2 text-xs">
+                            <Stats
+                                v-for="stat in stats"
+                                :key="stat.title"
+                                :color="objects.typePrimeColor"
+                                :value="stat.value"
+                                >{{ stat.title }}
+                            </Stats>
+                        </div>
+                    </div>
+                    <div
+                        class="flex justify-center items-center gap-4 mt-3 w-full"
+                    >
+                        <Button variant="outline">Attaques</Button>
+                        <Button variant="outline">Evolutions</Button>
+                    </div>
+                    <img
+                        :src="pokemon.image_artwork"
+                        :alt="pokemon.name + 'image'"
+                        class="absolute top-[-27vh] scale-50"
+                    />
+                </div>
+            </section>
         </section>
-        <div
-            class="lg:w-1/2 h-[98%] bg-gray-200 rounded-tl-3xl rounded-bl-3xl drop-shadow-2xl grid gap-5 justify-between p-5"
-        >
-            <div>
-                <PokemonCardDetails :pokemon="pokemon" :objects="objects" />
-            </div>
-            <div>
+    </section>
+
+    <PokeBallSvg
+        class="absolute top-[22vh] right-[32vw] scale-[10] opacity-10"
+    />
+</template>
+
+<!-- <div>
                 <Stats
                     v-for="stat in stats"
                     :key="stat.title"
@@ -99,53 +191,4 @@ const stats = [
                     :value="stat.value"
                     >{{ stat.title }}
                 </Stats>
-            </div>
-            <div class="">
-                <div class="grid grid-cols-5 w-full text-center p-5">
-                    <div v-if="objects.evolutions.first">
-                        <img
-                            :src="objects.evolutions.first.image_artwork"
-                            :alt="objects.evolutions.name"
-                        />
-                        <span class="font-bold">{{
-                            objects.evolutions.first.name
-                        }}</span>
-                    </div>
-                    <div
-                        v-if="
-                            objects.evolutions.first &&
-                            objects.evolutions.middle
-                        "
-                        class="flex justify-center items-center"
-                    >
-                        <ChevronsRight />
-                    </div>
-                    <div v-if="objects.evolutions.middle">
-                        <img
-                            :src="objects.evolutions.middle.image_artwork"
-                            :alt="objects.evolutions.name"
-                        />
-                        <span class="font-bold">{{
-                            objects.evolutions.middle.name
-                        }}</span>
-                    </div>
-                    <div
-                        v-if="objects.evolutions.middle"
-                        class="flex justify-center items-center"
-                    >
-                        <ChevronsRight />
-                    </div>
-                    <div v-if="objects.evolutions.last">
-                        <img
-                            :src="objects.evolutions.last.image_artwork"
-                            :alt="objects.evolutions.name"
-                        />
-                        <span class="font-bold">{{
-                            objects.evolutions.last.name
-                        }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
+            </div> -->

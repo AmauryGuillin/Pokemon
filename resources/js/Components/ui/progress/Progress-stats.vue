@@ -16,7 +16,7 @@ const props = withDefaults(
     >(),
     {
         modelValue: 0,
-    }
+    },
 );
 
 const delegatedProps = computed(() => {
@@ -31,8 +31,8 @@ const delegatedProps = computed(() => {
         v-bind="delegatedProps"
         :class="
             cn(
-                'relative h-4 w-full overflow-hidden rounded-full bg-gray-300',
-                props.class
+                'relative h-2 w-full overflow-hidden rounded-full bg-gray-300',
+                props.class,
             )
         "
     >

@@ -75,8 +75,8 @@ class PokemonController extends Controller
         $objects['allAttacks'] = $attackList;
 
         // Get evolutions
-        $evolutions = $this->evolutionsFinder($pokemonSelected);
-        $objects['evolutions'] = $evolutions;
+        // $evolutions = $this->evolutionsFinder($pokemonSelected);
+        // $objects['evolutions'] = $evolutions;
 
         return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected, 'objects' => $objects]);
     }
