@@ -214,7 +214,7 @@ function removeFilters() {
                 </div>
                 <div
                     v-if="usablePokemonList.length > 0"
-                    class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full h-fit gap-3"
+                    class="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] w-full h-fit gap-3"
                 >
                     <div v-for="pokemon in usablePokemonList">
                         <PokemonCardPokedexD
