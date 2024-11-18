@@ -65,13 +65,13 @@ const stats = [
             </header>
             <section class="flex flex-col h-[calc(100%-80px)]">
                 <div
-                    class="flex-1 items-end border-2 m-1 mb-2 rounded-xl bg-[#EFEFEF] shadow-lg relative mt-48"
+                    class="flex-1 items-end border-2 m-1 mb-2 rounded-xl bg-[#EFEFEF] shadow-lg relative mt-44"
                 >
-                  <img
-                      :src="pokemon.image_artwork"
-                      :alt="pokemon.name + 'image'"
-                      class="absolute left-1/2 -translate-x-1/2 -top-36 h-48"
-                  />
+                    <img
+                        :src="pokemon.image_artwork"
+                        :alt="pokemon.name + 'image'"
+                        class="absolute left-1/2 -translate-x-1/2 -top-36 h-48"
+                    />
                     <div class="flex justify-center items-center mt-14 gap-4">
                         <Badge
                             :style="{
@@ -173,6 +173,6 @@ const stats = [
     </section>
 
     <PokeBallSvg
-        class="absolute top-[22vh] right-[32vw] scale-[10] opacity-10"
+        class="absolute top-[23.5vh] right-[32vw] scale-[10] opacity-10"
     />
 </template>
