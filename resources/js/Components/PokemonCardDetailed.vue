@@ -64,10 +64,14 @@ const stats = [
                 </p>
             </header>
             <section class="flex flex-col h-[calc(100%-80px)]">
-                <div class="h-[25%]"></div>
                 <div
-                    class="flex-1 items-end border-2 m-1 mb-2 rounded-xl bg-[#EFEFEF] shadow-lg relative"
+                    class="flex-1 items-end border-2 m-1 mb-2 rounded-xl bg-[#EFEFEF] shadow-lg relative mt-48"
                 >
+                  <img
+                      :src="pokemon.image_artwork"
+                      :alt="pokemon.name + 'image'"
+                      class="absolute left-1/2 -translate-x-1/2 -top-36 h-48"
+                  />
                     <div class="flex justify-center items-center mt-14 gap-4">
                         <Badge
                             :style="{
@@ -168,11 +172,6 @@ const stats = [
                         <Button variant="outline">Attaques</Button>
                         <Button variant="outline">Evolutions</Button>
                     </div>
-                    <img
-                        :src="pokemon.image_artwork"
-                        :alt="pokemon.name + 'image'"
-                        class="absolute top-[-27vh] scale-50"
-                    />
                 </div>
             </section>
         </section>
