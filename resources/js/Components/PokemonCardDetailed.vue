@@ -70,7 +70,7 @@ const stats = [
                     <img
                         :src="pokemon.image_artwork"
                         :alt="pokemon.name + 'image'"
-                        class="absolute left-1/2 -translate-x-1/2 -top-36 h-48"
+                        class="absolute left-1/2 -translate-x-1/2 -top-36 h-48 z-50"
                     />
                     <div class="flex justify-center items-center mt-14 gap-4">
                         <Badge
