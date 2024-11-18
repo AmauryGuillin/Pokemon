@@ -199,7 +199,6 @@ class PokemonSeeder extends Seeder
             }
 
             echo ('pokemon : ' . $i . "\n");
-
         }
 
         echo 'Gen I Pokemon successfully added to DB';

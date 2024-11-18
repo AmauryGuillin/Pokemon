@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\ProfileController;
@@ -19,6 +20,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, "index"])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/pokedex', [PokemonController::class, "index"])->middleware(['auth', 'verified'])->name('pokedex');
 Route::get('/pokedex/{id}', [PokemonController::class, "show"])->middleware(['auth', 'verified'])->name('singlePokemon');
+Route::get('/pokemon/{name}/attack', [AttackController::class, 'index'])->middleware(['auth', 'verified'])->name('pokemonAttackView');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

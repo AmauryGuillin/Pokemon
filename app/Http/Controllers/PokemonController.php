@@ -18,7 +18,6 @@ class PokemonController extends Controller
         // Get all pokémon
         $allPokemons = Pokemon::all()->load(['typePrime', 'typePrime.color', 'typeSecond', 'typeSecond.color']);
         $allTypes = Type::all()->load('color');
-        //dd($allPokemons[0]);
         return Inertia::render('Pokedex/Pokedex', ['pokemons' => $allPokemons, 'types' => $allTypes]);
     }
 
@@ -75,8 +74,8 @@ class PokemonController extends Controller
         $objects['allAttacks'] = $attackList;
 
         // Get evolutions
-        // $evolutions = $this->evolutionsFinder($pokemonSelected);
-        // $objects['evolutions'] = $evolutions;
+        $evolutions = $this->evolutionsFinder($pokemonSelected);
+        $objects['evolutions'] = $evolutions;
 
         return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected, 'objects' => $objects]);
     }

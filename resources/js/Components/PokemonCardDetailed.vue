@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Link } from "@inertiajs/vue3";
-import { ArrowLeft, Ruler, Swords, Weight } from "lucide-vue-next";
+import { ArrowLeft, Ruler, Weight } from "lucide-vue-next";
 import { toRaw } from "vue";
 import PokeBallSvg from "./PokeBallSvg.vue";
 import Stats from "./Stats.vue";
@@ -12,7 +12,7 @@ const props = defineProps<{
     objects: any;
 }>();
 
-console.log(toRaw(props.objects));
+console.log(toRaw(props.pokemon));
 
 const stats = [
     {
@@ -116,12 +116,6 @@ const stats = [
                         <div
                             class="grid justify-center items-center h-full w-full gap-2 text-center"
                         >
-                            <div class="flex justify-center items-center gap-2">
-                                <Swords />
-                                <div class="text-sm font-semibold w-full">
-                                    Attaques
-                                </div>
-                            </div>
                             <div class="flex justify-center items-center gap-4">
                                 <div
                                     class="flex flex-col justify-center items-start"
@@ -133,11 +127,10 @@ const stats = [
                                         {{ attack }}
                                     </span>
                                 </div>
-                                <div>
-                                    <AttacksDialog
-                                        :objects="objects"
-                                        :pokemon="pokemon"
-                                    />
+                            </div>
+                            <div class="flex justify-center items-center gap-2">
+                                <div class="text-sm font-light w-full">
+                                    Attaques
                                 </div>
                             </div>
                         </div>
@@ -165,7 +158,9 @@ const stats = [
                     <div
                         class="flex justify-center items-center gap-4 mt-3 w-full"
                     >
-                        <Button variant="outline">Attaques</Button>
+                        <Link :href="`/pokemon/${pokemon.name}/attack/`">
+                            <Button variant="outline">Attaques</Button>
+                        </Link>
                         <Button variant="outline">Evolutions</Button>
                     </div>
                     <img
@@ -182,13 +177,3 @@ const stats = [
         class="absolute top-[22vh] right-[32vw] scale-[10] opacity-10"
     />
 </template>
-
-<!-- <div>
-                <Stats
-                    v-for="stat in stats"
-                    :key="stat.title"
-                    :color="objects.typePrimeColor"
-                    :value="stat.value"
-                    >{{ stat.title }}
-                </Stats>
-            </div> -->
