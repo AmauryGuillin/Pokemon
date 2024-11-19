@@ -5,7 +5,7 @@ import { toRaw } from "vue";
 import PokeBallSvg from "./PokeBallSvg.vue";
 import Stats from "./Stats.vue";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 
 const props = defineProps<{
     pokemon: any;
@@ -162,12 +162,15 @@ const stats = [
                     <div
                         class="flex justify-center items-center gap-4 mt-3 w-full"
                     >
-                        <Link :href="`/pokemon/${pokemon.name}/attack/`">
-                            <Button variant="outline">Attaques</Button>
+                        <Link
+                            :href="`/pokemon/${pokemon.name}/attack/`"
+                            :class="buttonVariants({ variant: 'outline' })"
+                        >
+                            Attaques
                         </Link>
                         <Button
+                            v-if="objects.evolutions.length > 1"
                             variant="outline"
-                            :disabled="objects.evolutions.length <= 1"
                             >Evolutions</Button
                         >
                     </div>
