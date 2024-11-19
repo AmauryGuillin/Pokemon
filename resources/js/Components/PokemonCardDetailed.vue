@@ -12,7 +12,7 @@ const props = defineProps<{
     objects: any;
 }>();
 
-console.log(toRaw(props.pokemon));
+console.log(toRaw(props.objects));
 
 const stats = [
     {
@@ -165,7 +165,11 @@ const stats = [
                         <Link :href="`/pokemon/${pokemon.name}/attack/`">
                             <Button variant="outline">Attaques</Button>
                         </Link>
-                        <Button variant="outline">Evolutions</Button>
+                        <Button
+                            variant="outline"
+                            :disabled="objects.evolutions.length <= 1"
+                            >Evolutions</Button
+                        >
                     </div>
                 </div>
             </section>
