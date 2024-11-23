@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pokemon;
 use App\Models\PokemonAttack;
 use App\Models\Type;
+use App\Utils\Utils;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -74,7 +75,7 @@ class PokemonController extends Controller
         $objects['allAttacks'] = $attackList;
 
         // Get evolutions
-        $evolutions = $this->evolutionsFinder($pokemonSelected);
+        $evolutions = Utils::evolutionsFinder($pokemonSelected);
         $objects['evolutions'] = $evolutions;
 
         return Inertia::render('Pokedex/SinglePokemon', ['pokemon' => $pokemonSelected, 'objects' => $objects]);
@@ -102,44 +103,5 @@ class PokemonController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    private function evolutionsFinder(Pokemon $input): array
-    {
-        $evolutionChain = [];
-        $evolutionChain[] = $input;
-
-        if ($input['number'] === 133) {
-            $evoliEvolutionChain = [134, 135, 136];
-            $tmpEvolutionChain = Pokemon::whereIn('number', $evoliEvolutionChain)->get();
-
-            foreach ($tmpEvolutionChain as $pokemon) {
-                array_push($evolutionChain, $pokemon);
-            }
-
-            return $evolutionChain;
-        }
-
-        if ($input['evolve_from']) {
-
-            $pokemonBefore = $input;
-
-            while ($pokemonBefore['evolve_from']) {
-                $pokemonBefore = Pokemon::where('name', $pokemonBefore['evolve_from'])->first();
-                array_unshift($evolutionChain, $pokemonBefore);
-            }
-        }
-
-        if ($input['evolve_to']) {
-
-            $pokemonAfter = $input;
-
-            while ($pokemonAfter['evolve_to']) {
-                $pokemonAfter = Pokemon::where('name', $pokemonAfter['evolve_to'])->first();
-                array_push($evolutionChain, $pokemonAfter);
-            }
-        }
-
-        return $evolutionChain;
     }
 }

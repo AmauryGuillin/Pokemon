@@ -11,7 +11,8 @@ import {
 } from "@/Components/ui/dialog";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-vue-next";
+import { Link } from "@inertiajs/vue3";
+import { ArrowLeft, ChevronRight } from "lucide-vue-next";
 
 const props = defineProps<{
     pokemon: any;
@@ -25,11 +26,19 @@ const props = defineProps<{
             class="w-full h-full font-poppins"
             :style="{ backgroundColor: pokemon.type_prime.color.value }"
         >
-            <div class="flex flex-col justify-center items-center mb-4">
+            <div
+                class="flex flex-col justify-center items-center mb-4 relative"
+            >
                 <img :src="pokemon.image_artwork" alt="" class="size-52" />
                 <h1 class="font-bold text-2xl text-white">
                     {{ pokemon.name }}
                 </h1>
+                <Link
+                    :href="`/pokedex/${pokemon.name}`"
+                    class="absolute top-3 left-3"
+                >
+                    <ArrowLeft class="stroke-white scale-150" />
+                </Link>
             </div>
             <div class="flex justify-center items-center pb-2">
                 <table class="w-[95vw] text-center bg-white rounded-xl">

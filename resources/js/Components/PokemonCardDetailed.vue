@@ -168,11 +168,13 @@ const stats = [
                         >
                             Attaques
                         </Link>
-                        <Button
+                        <Link
                             v-if="objects.evolutions.length > 1"
-                            variant="outline"
-                            >Evolutions</Button
+                            :href="`/pokemon/${pokemon.name}/evolution/`"
+                            :class="buttonVariants({ variant: 'outline' })"
                         >
+                            Evolutions
+                        </Link>
                     </div>
                 </div>
             </section>
