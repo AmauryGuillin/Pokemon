@@ -64,8 +64,9 @@ class PokemonController extends Controller
 
         $attacks['attack_one'] = $displayedAttacks[0]['attack']['name'];
         $attacks['attack_two'] = $displayedAttacks[1]['attack']['name'];
+        $objects['attackNames'] = $attacks;
 
-        //Get evolutions
+        // Get evolutions
         $evolutions = Utils::evolutionsFinder($pokemonSelected);
         $objects['evolutions'] = $evolutions;
 

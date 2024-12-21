@@ -41,7 +41,7 @@ const stats = [
 
 <template>
     <section
-        class="w-full h-full relative font-poppins"
+        class="w-full min-h-full relative font-poppins"
         :style="{ backgroundColor: pokemon.type_prime.color.value }"
     >
         <section class="h-full">
