@@ -29,6 +29,7 @@ const delegatedProps = computed(() => {
 <template>
     <ProgressRoot
         v-bind="delegatedProps"
+        :max="999"
         :class="
             cn(
                 'relative h-2 w-full overflow-hidden rounded-full bg-gray-300',
