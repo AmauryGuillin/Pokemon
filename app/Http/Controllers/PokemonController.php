@@ -61,20 +61,11 @@ class PokemonController extends Controller
         $attacks = [];
 
         $displayedAttacks = PokemonAttack::where('pokemon_id', $pokemonSelected->id)->with('attack')->take(2)->get();
-        $allAttacks = PokemonAttack::where('pokemon_id', $pokemonSelected->id)->with('attack.type.color')->get();
 
         $attacks['attack_one'] = $displayedAttacks[0]['attack']['name'];
         $attacks['attack_two'] = $displayedAttacks[1]['attack']['name'];
-        $objects['attackNames'] = $attacks;
 
-        $attackList = [];
-        foreach ($allAttacks as $attack) {
-            array_push($attackList, $attack['attack']);
-        }
-
-        $objects['allAttacks'] = $attackList;
-
-        // Get evolutions
+        //Get evolutions
         $evolutions = Utils::evolutionsFinder($pokemonSelected);
         $objects['evolutions'] = $evolutions;
 

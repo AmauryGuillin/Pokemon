@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { Link } from "@inertiajs/vue3";
 import { ArrowLeft, Ruler, Weight } from "lucide-vue-next";
-import { toRaw } from "vue";
 import PokeBallSvg from "./PokeBallSvg.vue";
 import Stats from "./Stats.vue";
 import { Badge } from "./ui/badge";
@@ -11,8 +10,6 @@ const props = defineProps<{
     pokemon: any;
     objects: any;
 }>();
-
-console.log(toRaw(props.objects));
 
 const stats = [
     {
