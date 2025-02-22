@@ -58,27 +58,29 @@ const stats = [
                     :alt="pokemon.name + 'image'"
                     class="h-72 z-50"
                 />
-                <div
-                    class="flex justify-center items-center gap-4 bg-white px-32 py-2 rounded-tr-xl rounded-tl-xl shadow-lg"
-                >
-                    <Badge
-                        :style="{
-                            backgroundColor: pokemon.type_prime.color.value,
-                        }"
-                        >{{ pokemon.type_prime.name }}
-                    </Badge>
-                    <Badge
-                        :style="{
-                            backgroundColor: pokemon.type_second.color.value,
-                        }"
-                        v-if="pokemon.type_second_id"
-                        >{{ pokemon.type_second.name }}
-                    </Badge>
-                </div>
             </div>
             <PokeBallSvg
-                class="absolute top-[11vh] left-[40vw] scale-[15] opacity-10 z-0"
+                class="absolute top-[11vh] left-[40vw] scale-[14] opacity-10 z-0"
             />
+        </section>
+        <section class="flex justify-center items-center">
+            <div
+                class="w-1/4 flex justify-center items-center bg-gray-100 gap-4 px-32 py-2 rounded-br-3xl rounded-bl-3xl shadow-sm border-b-2 border-gray-300"
+            >
+                <Badge
+                    :style="{
+                        backgroundColor: pokemon.type_prime.color.value,
+                    }"
+                    >{{ pokemon.type_prime.name }}
+                </Badge>
+                <Badge
+                    :style="{
+                        backgroundColor: pokemon.type_second.color.value,
+                    }"
+                    v-if="pokemon.type_second_id"
+                    >{{ pokemon.type_second.name }}
+                </Badge>
+            </div>
         </section>
         <section class="flex flex-col justify-center items-center gap-5">
             <div
