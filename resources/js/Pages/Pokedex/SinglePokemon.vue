@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import PokemonCardDetailed from "@/Components/PokemonCardDetailed.vue";
+import PokemonCardDetailedD from "@/Components/PokemonCardDetailedD.vue";
+import PokemonCardDetailedM from "@/Components/PokemonCardDetailedM.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 
@@ -13,8 +14,12 @@ defineProps<{
     <Head :title="'Pokedex - ' + pokemon.name" />
     <AuthenticatedLayout>
         <div class="w-full h-[calc(100vh-4rem)] sm:hidden">
-            <PokemonCardDetailed :pokemon="pokemon" :objects="objects" />
+            <PokemonCardDetailedM :pokemon="pokemon" :objects="objects" />
         </div>
-        <div class="hidden sm:block">Desktop view</div>
+        <div
+            class="hidden sm:flex justify-center items-center bg-[#DC0A2D] h-[calc(100vh-4rem)]"
+        >
+            <PokemonCardDetailedD :pokemon="pokemon" :objects="objects" />
+        </div>
     </AuthenticatedLayout>
 </template>

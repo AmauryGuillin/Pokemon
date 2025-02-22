@@ -7,8 +7,7 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
-import { Link } from '@inertiajs/vue3'
+import { Head, Link } from "@inertiajs/vue3";
 
 const props = defineProps<{
     pikachuImage: string;
@@ -29,14 +28,15 @@ const props = defineProps<{
         </div>
 
         <div class="flex justify-center items-center w-full gap-5">
-             <Link :href="'/pokedex'">
+            <Link :href="'/pokedex'">
                 <Card
                     class="cursor-pointer hover:scale-[1.03] transition-all h-48 w-64"
                 >
                     <CardHeader>
                         <CardTitle>Le Pokedex</CardTitle>
                         <CardDescription
-                            >Pokémon de la 1<sup>ère</sup> génération</CardDescription
+                            >Pokémon de la 1<sup>ère</sup>
+                            génération</CardDescription
                         >
                     </CardHeader>
                     <CardContent class="flex justify-center items-center">
@@ -44,7 +44,7 @@ const props = defineProps<{
                         <img :src="salamecheImage" alt="pikachu image" />
                     </CardContent>
                 </Card>
-             </Link>
+            </Link>
             <Card
                 class="cursor-pointer hover:bg-red-300 transition-all h-48 w-64"
             >
