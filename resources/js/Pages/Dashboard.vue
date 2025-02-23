@@ -7,12 +7,17 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { playShopMusics } from "@/Utils/MusicPlayer/music-utils";
 import { Head, Link } from "@inertiajs/vue3";
 
 const props = defineProps<{
     pikachuImage: string;
     salamecheImage: string;
 }>();
+
+if (!window.sound) {
+    playShopMusics();
+}
 </script>
 
 <template>

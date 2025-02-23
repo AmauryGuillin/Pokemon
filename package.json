@@ -8,6 +8,7 @@
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
+        "@types/howler": "^2.2.12",
         "@vitejs/plugin-vue": "^5.0.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.7.4",
@@ -26,6 +27,7 @@
         "@vueuse/core": "^11.1.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
+        "howler": "^2.2.4",
         "lucide-vue-next": "^0.447.0",
         "radix-vue": "^1.9.6",
         "tailwind-merge": "^2.5.3",
